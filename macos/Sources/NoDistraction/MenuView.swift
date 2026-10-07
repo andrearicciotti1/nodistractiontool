@@ -70,6 +70,9 @@ struct MenuView: View {
         }
         .padding(14)
         .frame(width: 340)
+        // La finestra di MenuBarExtra prende l'altezza ideale del contenuto:
+        // senza questo slider e menu la "allungano" lasciando spazi vuoti.
+        .fixedSize(horizontal: false, vertical: true)
     }
 
     // MARK: - Parti
