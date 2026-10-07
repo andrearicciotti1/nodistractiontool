@@ -159,6 +159,10 @@ final class AppModel: ObservableObject {
         Task { await start() }
     }
 
+    func debugSetLastAction(_ text: String) {
+        lastAction = text
+    }
+
     func requestAccessibility() {
         MediaKey.requestPermission()
     }

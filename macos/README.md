@@ -22,6 +22,14 @@ Crea `build/No Distraction.app` (universale Intel + Apple Silicon) e la copia in
 
 L'app è firmata "ad hoc": dopo ogni ricompilazione macOS può chiedere di nuovo i permessi. Se l'Accessibilità risulta attiva ma non funziona, rimuovila dall'elenco e aggiungila di nuovo.
 
+## Controllare la grafica
+
+```bash
+"build/No Distraction.app/Contents/MacOS/NoDistraction" --debug-snapshot /tmp/menu
+```
+
+Apre il pannello da solo e salva `/tmp/menu-1.png` e `/tmp/menu-2.png` (prima e dopo aver allungato il contenuto).
+
 ## Come funziona
 
 | File | Ruolo |
@@ -30,7 +38,8 @@ L'app è firmata "ad hoc": dopo ogni ricompilazione macOS può chiedere di nuovo
 | `CameraService.swift` | Webcam a 10 fotogrammi al secondo; in automatico scarta quelle virtuali (OBS ecc.) |
 | `MediaPauser.swift` | Pausa e ripresa di qualsiasi programma |
 | `AppModel.swift` | Stato, impostazioni, ritardo prima della pausa, ripresa |
-| `MenuView.swift` | Menu con anteprima della webcam e impostazioni |
+| `MenuView.swift` | Contenuto del menu: stato, anteprima della webcam, impostazioni |
+| `StatusPanel.swift` | Icona nella barra e pannello del menu (AppKit: la finestra di `MenuBarExtra` su macOS recenti aggiunge un fondo trasparente in più e non si adatta al contenuto) |
 
 ### Pausa di qualsiasi programma
 

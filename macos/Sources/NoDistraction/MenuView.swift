@@ -1,23 +1,10 @@
 import AVFoundation
 import SwiftUI
 
-@main
-struct NoDistractionApp: App {
-    @StateObject private var model = AppModel()
-
-    var body: some Scene {
-        MenuBarExtra {
-            MenuView(model: model)
-        } label: {
-            Image(systemName: model.menuIcon)
-        }
-        .menuBarExtraStyle(.window)
-    }
-}
-
 struct MenuView: View {
     @ObservedObject var model: AppModel
-    @State private var contentSize = CGSize.zero
+    /// Chiamata quando cambia la misura del contenuto, per adattare il pannello.
+    var onSizeChange: (CGSize) -> Void = { _ in }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -77,8 +64,7 @@ struct MenuView: View {
                 Color.clear.preference(key: ContentSizeKey.self, value: proxy.size)
             }
         )
-        .onPreferenceChange(ContentSizeKey.self) { contentSize = $0 }
-        .background(WindowSizeSync(size: contentSize))
+        .onPreferenceChange(ContentSizeKey.self) { onSizeChange($0) }
     }
 
     // MARK: - Parti
@@ -374,29 +360,6 @@ struct DelayControl: View {
 private struct ContentSizeKey: PreferenceKey {
     static var defaultValue = CGSize.zero
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) { value = nextValue() }
-}
-
-/// La finestra di MenuBarExtra non si rimpicciolisce quando il contenuto si
-/// accorcia (per esempio quando sparisce l'anteprima della webcam) e lo lascia
-/// centrato con spazi vuoti sopra e sotto. La ridimensioniamo noi sulla misura
-/// del contenuto, tenendo fermo il bordo in alto sotto l'icona.
-private struct WindowSizeSync: NSViewRepresentable {
-    let size: CGSize
-
-    func makeNSView(context: Context) -> NSView { NSView() }
-
-    func updateNSView(_ view: NSView, context: Context) {
-        let size = size
-        DispatchQueue.main.async {
-            guard let window = view.window, size.width > 0, size.height > 0 else { return }
-            let current = window.contentRect(forFrameRect: window.frame)
-            guard abs(current.height - size.height) > 0.5 || abs(current.width - size.width) > 0.5 else { return }
-            var frame = window.frameRect(forContentRect: NSRect(origin: current.origin, size: size))
-            frame.origin.x = window.frame.midX - frame.width / 2
-            frame.origin.y = window.frame.maxY - frame.height
-            window.setFrame(frame, display: true, animate: false)
-        }
-    }
 }
 
 /// Anteprima a specchio della webcam in uso.
