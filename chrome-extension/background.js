@@ -5,6 +5,7 @@ const DEFAULT_SETTINGS = {
   cameraId: "",
   pauseDelay: "1500",
   autoResume: true,
+  pauseSound: true,
   autoStart: false,
 };
 const OFF_STATE = { running: false, phase: "off" };
@@ -142,7 +143,7 @@ chrome.storage.onChanged.addListener(async (changes, area) => {
   if (area !== "local" || !(await hasOffscreen())) return;
   if (changes.cameraId) {
     await start();
-  } else if (changes.pauseDelay || changes.autoResume) {
+  } else if (changes.pauseDelay || changes.autoResume || changes.pauseSound) {
     sendToOffscreen("settings", { settings: await getSettings() }).catch(() => {});
   }
 });

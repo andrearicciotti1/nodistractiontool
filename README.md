@@ -18,7 +18,7 @@ La webcam viene analizzata **solo sul computer** con [MediaPipe Face Landmarker]
 - occhi chiusi;
 - sguardo di lato o in basso (per esempio verso il telefono).
 
-Dopo il ritardo scelto (0,7 – 5 secondi) mette in pausa; quando torni a guardare riprende solo i video che aveva fermato.
+Dopo il ritardo scelto (0,7 – 5 secondi) mette in pausa e suona un breve segnale di errore (disattivabile dal monitor); quando torni a guardare riprende solo i video che aveva fermato.
 
 ## Installare l'estensione
 

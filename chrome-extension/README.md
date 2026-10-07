@@ -25,6 +25,7 @@ popup / monitor ──ndt-start──▶ background.js (service worker)
 | `pauser.js` | Content script: mette in pausa i `<video>` in riproduzione e riprende solo quelli fermati da lui |
 | `monitor.html/js` | Pannello con anteprima, scelta webcam e impostazioni; ospita anche le modalità scherzo |
 | `popup.html/js` | Stato e pulsante Avvia/Interrompi |
+| `sounds/error.mp3` | Segnale suonato dal documento offscreen quando scatta la pausa (casella «Suono di errore» nel monitor) |
 
 Il permesso della webcam si può chiedere solo da una pagina visibile: per questo la prima volta si avvia dal monitor. Poi il documento offscreen riusa il permesso concesso all'estensione.
 

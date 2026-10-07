@@ -10,7 +10,7 @@ import {
 // "W1005 16:00:48 … face_landmarker_graph.cc"), che Chrome mostra come errori
 // dell'estensione. Non sono problemi: li filtriamo.
 const MEDIAPIPE_LOG = /^[IWE]\d{4} \d|XNNPACK|TensorFlow Lite|OpenGL error checking/;
-for (const level of ["log", "info", "warn"]) {
+for (const level of ["log", "info", "warn", "error"]) {
   const original = console[level].bind(console);
   console[level] = (...args) => {
     if (typeof args[0] === "string" && MEDIAPIPE_LOG.test(args[0])) return;

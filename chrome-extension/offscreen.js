@@ -7,7 +7,9 @@ import { Detector, cameraErrorHelp } from "./detector.js";
 const RESUME_AFTER_MS = 400;
 const STATE_INTERVAL_MS = 400;
 
-let settings = { cameraId: "", pauseDelay: 1500, autoResume: true };
+const errorSound = new Audio(chrome.runtime.getURL("sounds/error.mp3"));
+
+let settings = { cameraId: "", pauseDelay: 1500, autoResume: true, pauseSound: true };
 let awaySince = null;
 let backSince = null;
 let videosPaused = false;
@@ -30,7 +32,13 @@ function publish(patch, force = false) {
 function setPaused(paused) {
   if (paused === videosPaused) return;
   videosPaused = paused;
-  if (paused) chrome.runtime.sendMessage({ type: "ndt-pause" }).catch(() => {});
+  if (paused) {
+    chrome.runtime.sendMessage({ type: "ndt-pause" }).catch(() => {});
+    if (settings.pauseSound) {
+      errorSound.currentTime = 0;
+      errorSound.play().catch(console.error);
+    }
+  }
   else if (settings.autoResume) chrome.runtime.sendMessage({ type: "ndt-resume" }).catch(() => {});
 }
 
@@ -73,6 +81,7 @@ function applySettings(next = {}) {
     cameraId: next.cameraId ?? settings.cameraId,
     pauseDelay: Number(next.pauseDelay ?? settings.pauseDelay),
     autoResume: next.autoResume ?? settings.autoResume,
+    pauseSound: next.pauseSound ?? settings.pauseSound,
   };
 }
 

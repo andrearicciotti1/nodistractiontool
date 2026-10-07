@@ -75,6 +75,7 @@ const elements = {
   pauseOptions: $("#pause-options"),
   delaySelect: $("#delay-select"),
   resumeCheck: $("#resume-check"),
+  soundCheck: $("#sound-check"),
   autostartCheck: $("#autostart-check"),
   intro: $("#intro"),
   startButton: $("#start-button"),
@@ -155,12 +156,14 @@ async function restoreSettings() {
     selectedModeV2: "pause",
     pauseDelay: "1500",
     autoResume: true,
+    pauseSound: true,
     autoStart: false,
     cameraId: "",
   });
   if (MODES[settings.selectedModeV2]) elements.modeSelect.value = settings.selectedModeV2;
   elements.delaySelect.value = settings.pauseDelay;
   elements.resumeCheck.checked = settings.autoResume;
+  elements.soundCheck.checked = settings.pauseSound;
   elements.autostartCheck.checked = settings.autoStart;
   populateCameraSelect(await listCameras().catch(() => []), settings.cameraId);
   updateModeUi();
@@ -171,6 +174,7 @@ function saveSettings() {
     selectedModeV2: elements.modeSelect.value,
     pauseDelay: elements.delaySelect.value,
     autoResume: elements.resumeCheck.checked,
+    pauseSound: elements.soundCheck.checked,
     autoStart: elements.autostartCheck.checked,
     cameraId: elements.cameraSelect.value,
   });
@@ -553,6 +557,7 @@ elements.modeSelect.addEventListener("change", () => {
 elements.cameraSelect.addEventListener("change", changeCamera);
 elements.delaySelect.addEventListener("change", saveSettings);
 elements.resumeCheck.addEventListener("change", saveSettings);
+elements.soundCheck.addEventListener("change", saveSettings);
 elements.autostartCheck.addEventListener("change", saveSettings);
 elements.startButton.addEventListener("click", startMonitoring);
 elements.stopButton.addEventListener("click", stopMonitoring);
