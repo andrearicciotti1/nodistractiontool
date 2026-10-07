@@ -62,7 +62,7 @@ final class AppModel: ObservableObject {
         defaults.register(defaults: [
             "pauseDelay": 1.5, "autoResume": true, "pauseSound": true, "autoStart": true,
         ])
-        pauseDelay = defaults.double(forKey: "pauseDelay")
+        pauseDelay = DelayControl.rounded(defaults.double(forKey: "pauseDelay"))
         autoResume = defaults.bool(forKey: "autoResume")
         pauseSound = defaults.bool(forKey: "pauseSound")
         autoStart = defaults.bool(forKey: "autoStart")
