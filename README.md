@@ -9,7 +9,7 @@ La webcam viene analizzata **solo sul computer** con [MediaPipe Face Landmarker]
 | Cartella | Contenuto |
 | --- | --- |
 | [`chrome-extension/`](chrome-extension/) | Estensione Chrome (Manifest V3): pausa automatica dei video in tutte le schede, anche a pagina chiusa |
-| `macos/` | *(in arrivo)* app per la barra dei menu di macOS che controlla qualsiasi programma che riproduce video |
+| [`macos/`](macos/) | App per la barra dei menu di macOS: mette in pausa qualsiasi programma (Spotify, QuickTime, VLC, Safari, Chrome…) |
 
 ## Quando considera che "non stai guardando"
 

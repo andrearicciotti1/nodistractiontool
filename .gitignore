@@ -4,3 +4,7 @@
 # Clip audio/video delle modalità scherzo: pesanti e non nostre.
 # Restano solo in locale in chrome-extension/media/.
 chrome-extension/media/
+
+# Build dell'app macOS
+macos/.build/
+macos/build/
