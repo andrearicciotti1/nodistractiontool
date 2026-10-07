@@ -1,0 +1,521 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  --bg: #080b10;
+  --panel: #11161f;
+  --panel-soft: #171e29;
+  --line: #263142;
+  --text: #f4f7fb;
+  --muted: #93a0b3;
+  --accent: #58e7b3;
+  --danger: #ff314f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 15% 0%, #15263a 0, transparent 34%),
+    var(--bg);
+}
+
+button,
+select {
+  font: inherit;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;
+  padding: 14px clamp(18px, 4vw, 56px);
+  border-bottom: 1px solid var(--line);
+  background: rgb(8 11 16 / 82%);
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-mark {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+  color: var(--accent);
+  background: #101b20;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.brand div {
+  display: grid;
+  gap: 2px;
+}
+
+.brand strong {
+  font-size: 15px;
+}
+
+.brand div span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.privacy-badge {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 12px;
+  color: var(--muted);
+  background: #0d1219;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.privacy-badge.active {
+  border-color: rgb(88 231 179 / 45%);
+  color: var(--accent);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(310px, 0.75fr);
+  gap: 24px;
+  width: min(1440px, calc(100% - 36px));
+  margin: 32px auto;
+}
+
+.camera-card,
+.control-card {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--panel);
+  box-shadow: 0 24px 80px rgb(0 0 0 / 28%);
+}
+
+.camera-card {
+  position: relative;
+  min-height: 420px;
+  aspect-ratio: 16 / 9;
+  background: #05070a;
+}
+
+#camera {
+  display: none;
+}
+
+#preview {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.camera-overlay {
+  position: absolute;
+  inset: auto 18px 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.camera-overlay span {
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 999px;
+  padding: 8px 12px;
+  color: #dbe3ed;
+  background: rgb(4 7 10 / 72%);
+  font-size: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.control-card {
+  padding: clamp(24px, 3vw, 38px);
+}
+
+.eyebrow {
+  margin: 0 0 9px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(28px, 3vw, 42px);
+  letter-spacing: -0.04em;
+}
+
+.intro {
+  margin: 14px 0 28px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #cbd4e0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 13px 14px;
+  color: var(--text);
+  outline: none;
+  background: var(--panel-soft);
+}
+
+label.spaced {
+  margin-top: 16px;
+}
+
+select:focus {
+  border-color: var(--accent);
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: 1fr 0.72fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 13px 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+.primary {
+  color: #07120e;
+  background: var(--accent);
+}
+
+.secondary,
+.ghost {
+  color: var(--text);
+  background: #222b38;
+}
+
+.ghost {
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid var(--line);
+  background: transparent;
+}
+
+.status-panel {
+  display: grid;
+  gap: 14px;
+  margin-top: 28px;
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
+}
+
+.status-panel div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.status-panel span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.status-panel strong {
+  text-align: right;
+  font-size: 13px;
+}
+
+.pause-options {
+  margin-top: 16px;
+}
+
+.pause-options[hidden] {
+  display: none;
+}
+
+.pause-options .checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0 0;
+  cursor: pointer;
+}
+
+.checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+}
+
+.background-note {
+  margin: 22px 0 0;
+  border: 1px solid rgb(88 231 179 / 35%);
+  border-radius: 12px;
+  padding: 13px;
+  color: #c9f5e4;
+  background: rgb(88 231 179 / 8%);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.background-note[hidden] {
+  display: none;
+}
+
+.error-help {
+  margin: 22px 0 0;
+  border: 1px solid rgb(255 73 100 / 35%);
+  border-radius: 12px;
+  padding: 13px;
+  color: #ffc2cc;
+  background: rgb(255 73 100 / 8%);
+  font-size: 12px;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.error-help[hidden] {
+  display: none;
+}
+
+.privacy-note {
+  margin: 26px 0 0;
+  border: 1px solid rgb(88 231 179 / 18%);
+  border-radius: 12px;
+  padding: 13px;
+  color: #9fb4af;
+  background: rgb(88 231 179 / 5%);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.alert-overlay {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(0 0 0 / 88%);
+  backdrop-filter: blur(16px);
+}
+
+.alert-overlay[hidden],
+.standard-alert[hidden],
+.slideshow-alert[hidden],
+.automotive-alert[hidden] {
+  display: none;
+}
+
+.dismiss {
+  position: fixed;
+  z-index: 25;
+  top: 20px;
+  right: 20px;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  padding: 0 0 4px;
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 50%;
+  color: #fff;
+  background: rgb(20 24 31 / 80%);
+  font-size: 30px;
+}
+
+.standard-alert,
+.slideshow-alert {
+  overflow: hidden;
+  width: min(1100px, 95vw);
+  aspect-ratio: 16 / 9;
+  border: 1px solid #343d4a;
+  border-radius: 22px;
+  background: #000;
+  box-shadow: 0 35px 120px #000;
+}
+
+.standard-alert video,
+.slideshow-alert img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slideshow-alert img.zooming {
+  animation: photo-zoom 2s linear forwards;
+}
+
+@keyframes photo-zoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+.automotive-alert {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  width: min(1000px, 95vw);
+  min-height: 570px;
+  border: 10px solid var(--danger);
+  border-radius: 18px;
+  padding: 0 36px 34px;
+  background: #0b0e13;
+  box-shadow: 0 0 70px rgb(255 49 79 / 32%);
+  animation: alert-pulse 0.58s ease-in-out infinite alternate;
+}
+
+.automotive-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100% + 72px);
+  height: 62px;
+  padding: 0 24px;
+  color: #dbe1e8;
+  background: #181d25;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.automotive-header i {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--danger);
+  box-shadow: 0 0 16px var(--danger);
+}
+
+.warning-triangle {
+  position: relative;
+  display: grid;
+  width: 0;
+  height: 0;
+  place-items: center;
+  margin-top: 24px;
+  border-right: 92px solid transparent;
+  border-bottom: 160px solid var(--danger);
+  border-left: 92px solid transparent;
+}
+
+.warning-triangle::after {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin-top: 88px;
+  border-right: 72px solid transparent;
+  border-bottom: 126px solid #0b0e13;
+  border-left: 72px solid transparent;
+  content: "";
+}
+
+.warning-triangle span {
+  position: relative;
+  z-index: 1;
+  margin-top: 108px;
+  color: var(--danger);
+  font-size: 88px;
+  font-weight: 900;
+}
+
+.automotive-alert p {
+  margin: 20px 0 4px;
+  color: var(--danger);
+  font-size: 31px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+.automotive-alert h2 {
+  margin: 0;
+  font-size: clamp(34px, 5vw, 62px);
+}
+
+.automotive-alert h3 {
+  margin: 8px 0 24px;
+  color: var(--danger);
+  font-size: clamp(38px, 6vw, 74px);
+}
+
+.automotive-alert small {
+  color: #7e8998;
+  letter-spacing: 0.1em;
+}
+
+@keyframes alert-pulse {
+  from {
+    border-color: #c90025;
+    box-shadow: 0 0 35px rgb(255 49 79 / 18%);
+  }
+  to {
+    border-color: #ff4964;
+    box-shadow: 0 0 95px rgb(255 49 79 / 48%);
+  }
+}
+
+@media (max-width: 940px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .camera-card {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .topbar {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .privacy-badge {
+    max-width: 140px;
+    text-align: center;
+  }
+
+  .layout {
+    width: min(100% - 20px, 1440px);
+    margin-top: 14px;
+  }
+
+  .button-row {
+    grid-template-columns: 1fr;
+  }
+}

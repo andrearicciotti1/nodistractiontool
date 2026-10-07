@@ -1,0 +1,98 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 320px;
+  margin: 0;
+  color: #f5f7fb;
+  background: #0b0e14;
+}
+
+main {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  padding: 26px;
+  text-align: center;
+}
+
+.mark {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border: 1px solid #56e6b2;
+  border-radius: 16px;
+  color: #56e6b2;
+  background: #111923;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+p {
+  margin: 0;
+  color: #aeb8c7;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+button {
+  width: 100%;
+  border: 0;
+  border-radius: 11px;
+  padding: 12px 16px;
+  color: #07120e;
+  background: #56e6b2;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #72f1c3;
+}
+
+small {
+  color: #778396;
+}
+
+.secondary {
+  color: #f5f7fb;
+  background: #222b38;
+}
+
+.secondary:hover {
+  background: #2c3746;
+}
+
+.status {
+  border-radius: 999px;
+  padding: 5px 12px;
+  color: #93a0b3;
+  background: #161c26;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.status.on {
+  color: #58e7b3;
+}
+
+.status.away {
+  color: #ffbf47;
+}
+
+.status.paused,
+.status.error {
+  color: #ff4964;
+}

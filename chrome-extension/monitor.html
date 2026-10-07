@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>No Distraction Tool — Monitor</title>
+    <link rel="stylesheet" href="monitor.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">ND</span>
+        <div>
+          <strong>No Distraction Tool</strong>
+          <span>Monitor locale della postura</span>
+        </div>
+      </div>
+      <div id="privacy-badge" class="privacy-badge">● CAMERA DISATTIVATA</div>
+    </header>
+
+    <main class="layout">
+      <section class="camera-card">
+        <video id="camera" playsinline muted></video>
+        <canvas id="preview" width="1280" height="720"></canvas>
+        <div class="camera-overlay">
+          <span id="camera-status">In attesa di avvio</span>
+          <span id="pitch-status">Pitch: —</span>
+        </div>
+      </section>
+
+      <aside class="control-card">
+        <p class="eyebrow">CONFIGURAZIONE</p>
+        <h1>Rimani concentrato</h1>
+        <p id="intro" class="intro">Quando smetti di guardare lo schermo i video vengono messi in pausa e ripartono quando torni a guardare.</p>
+
+        <label for="camera-select">Webcam</label>
+        <select id="camera-select">
+          <option value="">Automatica (esclude webcam virtuali)</option>
+        </select>
+
+        <label for="mode-select" class="spaced">Modalità</label>
+        <select id="mode-select"></select>
+
+        <div id="pause-options" class="pause-options">
+          <label for="delay-select">Pausa dopo</label>
+          <select id="delay-select">
+            <option value="700">0,7 secondi</option>
+            <option value="1500" selected>1,5 secondi</option>
+            <option value="3000">3 secondi</option>
+            <option value="5000">5 secondi</option>
+          </select>
+          <label class="checkbox">
+            <input id="resume-check" type="checkbox" checked>
+            Riprendi quando torno a guardare
+          </label>
+          <label class="checkbox">
+            <input id="autostart-check" type="checkbox">
+            Avvia da solo quando apro Chrome
+          </label>
+        </div>
+
+        <div class="button-row">
+          <button id="start-button" class="primary" type="button">Avvia monitoraggio</button>
+          <button id="stop-button" class="secondary" type="button" disabled>Interrompi</button>
+        </div>
+        <button id="calibrate-button" class="ghost" type="button" disabled>Ripeti calibrazione</button>
+
+        <div class="status-panel" aria-live="polite">
+          <div>
+            <span>Stato</span>
+            <strong id="system-status">Non attivo</strong>
+          </div>
+          <div>
+            <span>Sguardo</span>
+            <strong id="gaze-status">—</strong>
+          </div>
+          <div>
+            <span>Calibrazione</span>
+            <strong id="calibration-status">—</strong>
+          </div>
+        </div>
+
+        <p id="error-help" class="error-help" hidden></p>
+
+        <p id="background-note" class="background-note" hidden>
+          Puoi chiudere questa scheda: l’analisi continua in background. Per fermarla usa l’icona dell’estensione.
+        </p>
+
+        <p class="privacy-note">
+          I fotogrammi vengono analizzati solo su questo computer e non vengono salvati o inviati a server esterni.
+        </p>
+      </aside>
+    </main>
+
+    <section id="alert-overlay" class="alert-overlay" hidden>
+      <button id="dismiss-alert" class="dismiss" type="button" aria-label="Chiudi avviso">×</button>
+
+      <div id="standard-alert" class="standard-alert" hidden>
+        <video id="alert-video" playsinline muted loop></video>
+      </div>
+
+      <div id="slideshow-alert" class="slideshow-alert" hidden>
+        <img id="slideshow-image" alt="Richiamo visivo Benzina">
+      </div>
+
+      <div id="automotive-alert" class="automotive-alert" hidden>
+        <div class="automotive-header">
+          <span>DRIVER MONITORING SYSTEM</span>
+          <i aria-hidden="true"></i>
+        </div>
+        <div class="warning-triangle" aria-hidden="true"><span>!</span></div>
+        <p>ATTENZIONE</p>
+        <h2>TESTA ABBASSATA</h2>
+        <h3>GUARDA LA STRADA</h3>
+        <small>PROTOTIPO DIMOSTRATIVO — NON CERTIFICATO</small>
+      </div>
+
+      <audio id="alert-audio" loop></audio>
+    </section>
+
+    <script type="module" src="monitor.js"></script>
+  </body>
+</html>

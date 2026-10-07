@@ -1,0 +1,6 @@
+.DS_Store
+*.zip
+
+# Clip audio/video delle modalità scherzo: pesanti e non nostre.
+# Restano solo in locale in chrome-extension/media/.
+chrome-extension/media/
