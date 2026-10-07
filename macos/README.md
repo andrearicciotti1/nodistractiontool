@@ -1,4 +1,6 @@
-# No Distraction — app per la barra dei menu di macOS
+# 🖥️ No Distraction — app per la barra dei menu di macOS
+
+> Parte della repo [No Distraction Tool](../README.md), che contiene anche l'[estensione Chrome](../chrome-extension/).
 
 Stessa idea dell'estensione Chrome, ma per **qualsiasi programma**: Chrome, Safari, Spotify, Musica, QuickTime, VLC, IINA, Netflix e YouTube nel browser… Quando smetti di guardare lo schermo mette in pausa ciò che sta suonando, suona `error.mp3` e riprende quando torni a guardare.
 

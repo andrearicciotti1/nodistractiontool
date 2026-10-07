@@ -1,4 +1,6 @@
-# No Distraction Tool — Estensione Chrome
+# 🧩 No Distraction Tool — Estensione Chrome
+
+> Parte della repo [No Distraction Tool](../README.md), che contiene anche l'[app per Mac](../macos/), che mette in pausa qualsiasi programma.
 
 Estensione Manifest V3 (Chrome 116+). Tutta l'analisi avviene in locale con MediaPipe Tasks Vision (WebAssembly incluso in `vendor/`).
 

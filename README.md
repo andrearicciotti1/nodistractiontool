@@ -1,32 +1,65 @@
 # No Distraction Tool
 
-Mette in pausa i video quando smetti di guardare lo schermo e li fa ripartire quando torni a guardare.
+Strumenti che usano la webcam per capire se stai guardando lo schermo: quando ti distrai **mettono in pausa il video** (con un suono di errore) e lo **fanno ripartire** quando torni a guardare.
 
-La webcam viene analizzata **solo sul computer** con [MediaPipe Face Landmarker](https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker): nessun fotogramma viene salvato o inviato a un server.
+L'analisi avviene **solo sul computer**: nessun fotogramma viene salvato o inviato a un server.
 
-## Cosa c'è nella repo
+La repo contiene **due strumenti separati**, indipendenti tra loro:
 
-| Cartella | Contenuto |
-| --- | --- |
-| [`chrome-extension/`](chrome-extension/) | Estensione Chrome (Manifest V3): pausa automatica dei video in tutte le schede, anche a pagina chiusa |
-| [`macos/`](macos/) | App per la barra dei menu di macOS: mette in pausa qualsiasi programma (Spotify, QuickTime, VLC, Safari, Chrome…) |
+| | [🖥️ App per Mac](macos/) | [🧩 Estensione Chrome](chrome-extension/) |
+| --- | --- | --- |
+| **Cosa mette in pausa** | Qualsiasi programma: Chrome, Safari, Spotify, Musica, QuickTime, VLC, IINA, Elmedia… | Solo i video dentro Chrome (YouTube, Netflix, Prime Video, Twitch…) |
+| **Dove vive** | Icona nella barra dei menu | Icona dell'estensione in Chrome |
+| **Riconoscimento** | Apple Vision | MediaPipe Face Landmarker |
+| **Video muti** | Non li ferma (riconosce la riproduzione dall'audio) | Li ferma |
+| **Extra** | Avvio al login | Modalità scherzo (richiami video quando abbassi la testa) |
+| **Requisiti** | macOS 13+ (consigliato 14.2+) | Chrome 116+ su qualsiasi sistema |
+| **Cartella** | [`macos/`](macos/) | [`chrome-extension/`](chrome-extension/) |
 
-## Quando considera che "non stai guardando"
+**Quale usare?** Su Mac l'app copre tutto. L'estensione serve su Windows/Linux, oppure se vuoi fermare anche video senza audio. **Non usarle insieme**: metterebbero in pausa entrambe.
 
-- volto assente dall'inquadratura;
-- testa girata, abbassata o alzata rispetto alla posizione calibrata;
-- occhi chiusi;
-- sguardo di lato o in basso (per esempio verso il telefono).
+## Cosa hanno in comune
 
-Dopo il ritardo scelto (0,7 – 5 secondi) mette in pausa e suona un breve segnale di errore (disattivabile dal monitor); quando torni a guardare riprende solo i video che aveva fermato.
+- **Calibrazione:** all'avvio guardi lo schermo per qualche secondo e la tua posizione diventa quella "neutra".
+- **Quando sei distratto:** volto assente, testa girata o inclinata, occhi chiusi, sguardo di lato o in basso (per esempio verso il telefono).
+- **Ritardo** prima della pausa regolabile, così un'occhiata veloce non ferma niente.
+- **Ripresa** automatica quando torni a guardare (disattivabile): riparte solo ciò che è stato messo in pausa dallo strumento.
+- **Suono di errore** alla pausa ([`chrome-extension/sounds/error.mp3`](chrome-extension/sounds/error.mp3), usato da entrambi), disattivabile.
+- **Scelta della webcam**, con esclusione automatica di quelle virtuali (OBS ecc.), che senza il programma che le alimenta mandano un'immagine fissa.
 
-## Installare l'estensione
+## 🖥️ App per Mac — installazione rapida
+
+```bash
+cd macos
+./build.sh --install
+```
+
+Poi apri **No Distraction** da Applicazioni, consenti la webcam e il permesso **Accessibilità** (serve per premere ⏯ al posto tuo). Dettagli in [`macos/README.md`](macos/README.md).
+
+## 🧩 Estensione Chrome — installazione rapida
 
 1. Apri `chrome://extensions` e attiva **Modalità sviluppatore**.
-2. **Carica estensione non pacchettizzata** → scegli la cartella `chrome-extension`.
-3. Clicca l'icona dell'estensione → **Apri il monitor** → **Avvia monitoraggio** e consenti la webcam (serve solo la prima volta).
-4. Guarda dritto qualche secondo per la calibrazione. Da qui puoi chiudere la scheda: l'analisi continua in background.
+2. **Carica estensione non pacchettizzata** → scegli la cartella [`chrome-extension`](chrome-extension/).
+3. Icona dell'estensione → **Apri il monitor** → **Avvia monitoraggio** e consenti la webcam (solo la prima volta).
+4. Dopo la calibrazione puoi chiudere la scheda: l'analisi continua in background. Da lì in poi si avvia e si ferma dal popup dell'icona.
 
-Dopo il primo permesso puoi avviare e fermare tutto dal pulsante nel popup dell'icona. L'icona mostra lo stato: `…` calibrazione, `ON` attivo, `II` video in pausa.
+Dettagli in [`chrome-extension/README.md`](chrome-extension/README.md).
 
-Dettagli tecnici in [`chrome-extension/README.md`](chrome-extension/README.md).
+## Struttura
+
+```
+nodistractiontool/
+├── macos/               App per la barra dei menu (Swift, SwiftUI + AppKit, Apple Vision)
+│   ├── Sources/         Codice dell'app
+│   ├── Resources/       Info.plist
+│   └── build.sh         Compila e installa
+└── chrome-extension/    Estensione Chrome Manifest V3 (JavaScript, MediaPipe in WebAssembly)
+    ├── sounds/          Suono di errore (condiviso con l'app)
+    ├── vendor/, models/ MediaPipe e modello del volto
+    └── media/           Clip delle modalità scherzo: NON nella repo, solo in locale
+```
+
+## Note
+
+- I file in `chrome-extension/media/` (clip audio/video delle modalità scherzo) sono di terzi e restano fuori dalla repo.
+- La "Versione auto" dell'estensione è un prototipo dimostrativo non certificato: non usarla come sistema di sicurezza alla guida.
