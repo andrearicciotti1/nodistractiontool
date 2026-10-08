@@ -1,8 +1,14 @@
 {
   "manifest_version": 3,
   "name": "No Distraction Tool",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Mette in pausa i video quando smetti di guardare lo schermo, anche con la pagina chiusa. Analisi della webcam solo in locale.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
   "minimum_chrome_version": "116",
   "background": {
     "service_worker": "background.js"
@@ -29,7 +35,11 @@
   ],
   "action": {
     "default_title": "No Distraction Tool",
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    }
   },
   "content_security_policy": {
     "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"

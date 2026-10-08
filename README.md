@@ -1,10 +1,21 @@
-# No Distraction Tool
+<p align="center">
+  <img src="branding/icon-256.png" width="128" height="128" alt="Icona di No Distraction">
+</p>
 
-Strumenti che usano la webcam per capire se stai guardando lo schermo: quando ti distrai **mettono in pausa il video** (con un suono di errore) e lo **fanno ripartire** quando torni a guardare.
+<h1 align="center">No Distraction Tool</h1>
 
-L'analisi avviene **solo sul computer**: nessun fotogramma viene salvato o inviato a un server.
+<p align="center">
+  <b>Ti distrai? Il video si ferma. Torni a guardare? Riparte.</b><br>
+  <sub>🖥️ App per Mac · 🧩 Estensione Chrome · 🔒 Analisi solo in locale</sub>
+</p>
 
-La repo contiene **due strumenti separati**, indipendenti tra loro:
+---
+
+👁️ Strumenti che usano la webcam per capire se stai guardando lo schermo: quando ti distrai **mettono in pausa il video** (con un suono di errore) e lo **fanno ripartire** quando torni a guardare.
+
+🔒 L'analisi avviene **solo sul computer**: nessun fotogramma viene salvato o inviato a un server.
+
+📦 La repo contiene **due strumenti separati**, indipendenti tra loro:
 
 | | [🖥️ App per Mac](macos/) | [🧩 Estensione Chrome](chrome-extension/) |
 | --- | --- | --- |
@@ -16,27 +27,36 @@ La repo contiene **due strumenti separati**, indipendenti tra loro:
 | **Requisiti** | macOS 13+ (consigliato 14.2+) | Chrome 116+ su qualsiasi sistema |
 | **Cartella** | [`macos/`](macos/) | [`chrome-extension/`](chrome-extension/) |
 
-**Quale usare?** Su Mac l'app copre tutto. L'estensione serve su Windows/Linux, oppure se vuoi fermare anche video senza audio. **Non usarle insieme**: metterebbero in pausa entrambe.
+🤔 **Quale usare?** Su Mac l'app copre tutto. L'estensione serve su Windows/Linux, oppure se vuoi fermare anche video senza audio. **Non usarle insieme**: metterebbero in pausa entrambe.
 
-## Cosa hanno in comune
+## ✨ Cosa hanno in comune
 
-- **Calibrazione:** all'avvio guardi lo schermo per qualche secondo e la tua posizione diventa quella "neutra".
-- **Quando sei distratto:** volto assente, testa girata o inclinata, occhi chiusi, sguardo di lato o in basso (per esempio verso il telefono).
-- **Ritardo** prima della pausa regolabile, così un'occhiata veloce non ferma niente.
-- **Ripresa** automatica quando torni a guardare (disattivabile): riparte solo ciò che è stato messo in pausa dallo strumento.
-- **Suono di errore** alla pausa ([`chrome-extension/sounds/error.mp3`](chrome-extension/sounds/error.mp3), usato da entrambi), disattivabile.
-- **Scelta della webcam**, con esclusione automatica di quelle virtuali (OBS ecc.), che senza il programma che le alimenta mandano un'immagine fissa.
+- 🎯 **Calibrazione:** all'avvio guardi lo schermo per qualche secondo e la tua posizione diventa quella "neutra".
+- 👀 **Quando sei distratto:** volto assente, testa girata o inclinata, occhi chiusi, sguardo di lato o in basso (per esempio verso il telefono).
+- ⏱️ **Ritardo** prima della pausa regolabile, così un'occhiata veloce non ferma niente.
+- ▶️ **Ripresa** automatica quando torni a guardare (disattivabile): riparte solo ciò che è stato messo in pausa dallo strumento.
+- 🔔 **Suono di errore** alla pausa ([`chrome-extension/sounds/error.mp3`](chrome-extension/sounds/error.mp3), usato da entrambi), disattivabile.
+- 📷 **Scelta della webcam**, con esclusione automatica di quelle virtuali (OBS ecc.), che senza il programma che le alimenta mandano un'immagine fissa.
 
-## 🖥️ App per Mac — installazione rapida
+## 🖥️ App per Mac — installazione
+
+<p align="center">
+  <img src="branding/dmg-preview.jpg" width="560" alt="Finestra di installazione del DMG">
+</p>
+
+**Con il DMG:** apri `No-Distraction-1.0.0.dmg` e trascina l'app in Applicazioni.
+
+**Dal codice:**
 
 ```bash
 cd macos
-./build.sh --install
+./make-dmg.sh          # crea build/No-Distraction-<versione>.dmg
+./build.sh --install   # oppure: compila e copia direttamente in /Applications
 ```
 
-Poi apri **No Distraction** da Applicazioni, consenti la webcam e il permesso **Accessibilità** (serve per premere ⏯ al posto tuo). Dettagli in [`macos/README.md`](macos/README.md).
+⚠️ L'app non è firmata con un certificato Apple: al primo avvio fai **clic destro sull'app › Apri**. Poi apri **No Distraction** da Applicazioni, consenti la webcam e il permesso **Accessibilità** (serve per premere ⏯ al posto tuo). Dettagli in [`macos/README.md`](macos/README.md).
 
-## 🧩 Estensione Chrome — installazione rapida
+## 🧩 Estensione Chrome — installazione
 
 1. Apri `chrome://extensions` e attiva **Modalità sviluppatore**.
 2. **Carica estensione non pacchettizzata** → scegli la cartella [`chrome-extension`](chrome-extension/).
@@ -45,21 +65,24 @@ Poi apri **No Distraction** da Applicazioni, consenti la webcam e il permesso **
 
 Dettagli in [`chrome-extension/README.md`](chrome-extension/README.md).
 
-## Struttura
+## 🗂️ Struttura
 
 ```
 nodistractiontool/
 ├── macos/               App per la barra dei menu (Swift, SwiftUI + AppKit, Apple Vision)
 │   ├── Sources/         Codice dell'app
 │   ├── Resources/       Info.plist
-│   └── build.sh         Compila e installa
-└── chrome-extension/    Estensione Chrome Manifest V3 (JavaScript, MediaPipe in WebAssembly)
-    ├── sounds/          Suono di errore (condiviso con l'app)
-    ├── vendor/, models/ MediaPipe e modello del volto
-    └── media/           Clip delle modalità scherzo: NON nella repo, solo in locale
+│   ├── build.sh         Compila e installa
+│   └── make-dmg.sh      Crea il DMG di installazione
+├── chrome-extension/    Estensione Chrome Manifest V3 (JavaScript, MediaPipe in WebAssembly)
+│   ├── icons/           Icone dell'estensione
+│   ├── sounds/          Suono di errore (condiviso con l'app)
+│   ├── vendor/, models/ MediaPipe e modello del volto
+│   └── media/           Clip delle modalità scherzo: NON nella repo, solo in locale
+└── branding/            Icona, sfondo del DMG e lo script che li disegna (render.swift)
 ```
 
-## Note
+## 📝 Note
 
-- I file in `chrome-extension/media/` (clip audio/video delle modalità scherzo) sono di terzi e restano fuori dalla repo.
-- La "Versione auto" dell'estensione è un prototipo dimostrativo non certificato: non usarla come sistema di sicurezza alla guida.
+- 🎬 I file in `chrome-extension/media/` (clip audio/video delle modalità scherzo) sono di terzi e restano fuori dalla repo.
+- 🚗 La "Versione auto" dell'estensione è un prototipo dimostrativo non certificato: non usarla come sistema di sicurezza alla guida.

@@ -1,3 +1,5 @@
+<img src="../branding/icon-256.png" width="96" height="96" align="right" alt="">
+
 # 🖥️ No Distraction — app per la barra dei menu di macOS
 
 > Parte della repo [No Distraction Tool](../README.md), che contiene anche l'[estensione Chrome](../chrome-extension/).
@@ -6,17 +8,21 @@ Stessa idea dell'estensione Chrome, ma per **qualsiasi programma**: Chrome, Safa
 
 Requisiti: macOS 13+ (consigliato 14.2+), Xcode o i Command Line Tools per compilare.
 
-## Compilare e installare
+## 📦 Compilare e installare
 
 ```bash
 cd macos
-./build.sh --install
+./make-dmg.sh          # DMG di installazione: build/No-Distraction-<versione>.dmg
+./build.sh --install   # oppure: compila e copia direttamente in /Applications
 ```
 
-Crea `build/No Distraction.app` (universale Intel + Apple Silicon) e la copia in `/Applications`.
+L'app è universale (Intel + Apple Silicon). `make-dmg.sh` usa [dmgbuild](https://github.com/dmgbuild/dmgbuild), installato da solo in `.build/dmg-venv` al primo uso, per impaginare la finestra (sfondo, freccia, icona del volume) senza pilotare Finder.
 
-## Primo avvio
+<p align="center"><img src="../branding/dmg-preview.jpg" width="520" alt="Finestra del DMG"></p>
 
+## 🚀 Primo avvio
+
+0. L'app non è firmata con un certificato Apple: la prima volta fai **clic destro › Apri** (oppure Impostazioni › Privacy e sicurezza › *Apri comunque*).
 1. Apri **No Distraction** da Applicazioni: compare un'icona a forma di occhio nella barra dei menu.
 2. Consenti l'accesso alla **webcam**.
 3. Nel menu premi **Concedi permesso** e attiva No Distraction in *Impostazioni di Sistema › Privacy e sicurezza › Accessibilità*. Serve per premere il tasto ⏯ al posto tuo.
@@ -24,7 +30,7 @@ Crea `build/No Distraction.app` (universale Intel + Apple Silicon) e la copia in
 
 L'app è firmata "ad hoc": dopo ogni ricompilazione macOS può chiedere di nuovo i permessi. Se l'Accessibilità risulta attiva ma non funziona, rimuovila dall'elenco e aggiungila di nuovo.
 
-## Controllare la grafica
+## 🎨 Controllare la grafica
 
 ```bash
 "build/No Distraction.app/Contents/MacOS/NoDistraction" --debug-snapshot /tmp/menu
@@ -32,7 +38,7 @@ L'app è firmata "ad hoc": dopo ogni ricompilazione macOS può chiedere di nuovo
 
 Apre il pannello da solo e salva `/tmp/menu-1.png` e `/tmp/menu-2.png` (prima e dopo aver allungato il contenuto).
 
-## Come funziona
+## ⚙️ Come funziona
 
 | File | Ruolo |
 | --- | --- |
@@ -43,7 +49,7 @@ Apre il pannello da solo e salva `/tmp/menu-1.png` e `/tmp/menu-2.png` (prima e 
 | `MenuView.swift` | Contenuto del menu: stato, anteprima della webcam, impostazioni |
 | `StatusPanel.swift` | Icona nella barra e pannello del menu (AppKit: la finestra di `MenuBarExtra` su macOS recenti aggiunge un fondo trasparente in più e non si adatta al contenuto) |
 
-### Pausa di qualsiasi programma
+### ⏯️ Pausa di qualsiasi programma
 
 macOS 15.4+ non permette più alle app di terze parti di comandare la riproduzione con MediaRemote. L'app quindi simula il **tasto ⏯** della tastiera, che macOS consegna al programma in riproduzione.
 

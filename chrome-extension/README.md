@@ -1,10 +1,12 @@
+<img src="icons/icon-128.png" width="96" height="96" align="right" alt="">
+
 # 🧩 No Distraction Tool — Estensione Chrome
 
 > Parte della repo [No Distraction Tool](../README.md), che contiene anche l'[app per Mac](../macos/), che mette in pausa qualsiasi programma.
 
 Estensione Manifest V3 (Chrome 116+). Tutta l'analisi avviene in locale con MediaPipe Tasks Vision (WebAssembly incluso in `vendor/`).
 
-## Come è fatta
+## ⚙️ Come è fatta
 
 ```
 popup / monitor ──ndt-start──▶ background.js (service worker)
@@ -31,18 +33,18 @@ popup / monitor ──ndt-start──▶ background.js (service worker)
 
 Il permesso della webcam si può chiedere solo da una pagina visibile: per questo la prima volta si avvia dal monitor. Poi il documento offscreen riusa il permesso concesso all'estensione.
 
-## Modalità scherzo
+## 🎭 Modalità scherzo
 
 Oltre alla pausa, il monitor ha le modalità originali (Enrico Papi, Serena Brancale, Ultimo, Benzina, Teams, Physical, Versione auto) che mostrano un richiamo quando abbassi la testa. Funzionano solo con la scheda del monitor aperta e richiedono i file in `media/`, che **non sono nella repo** (sono clip di terzi): vanno copiati a mano in `chrome-extension/media/`.
 
 La "Versione auto" è un prototipo dimostrativo non certificato: non usarla come sistema di sicurezza alla guida.
 
-## Limiti
+## ⚠️ Limiti
 
 - Controlla solo i video dentro Chrome (non app native come Netflix per Mac, Spotify, VLC).
 - I lettori che non usano un elemento `<video>` standard potrebbero non essere fermati.
 - Le soglie dello sguardo sono in `detector.js` (`PAUSE_*`, `EYES_*`) e potrebbero richiedere taratura.
 
-## Test
+## 🧪 Test
 
 Il flusso completo è stato verificato su Chrome 154 in headless, con una webcam finta (`--use-file-for-fake-video-capture`) che alterna volto presente e assente: calibrazione, pausa dopo il ritardo, ripresa al ritorno del volto, tutto senza pagine dell'estensione aperte.

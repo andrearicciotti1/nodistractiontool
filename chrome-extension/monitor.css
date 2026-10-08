@@ -7,7 +7,8 @@
   --line: #263142;
   --text: #f4f7fb;
   --muted: #93a0b3;
-  --accent: #58e7b3;
+  --accent: #8b7cff;
+  --accent-strong: linear-gradient(135deg, #6e63ff, #4a33d8);
   --danger: #ff314f;
 }
 
@@ -24,7 +25,7 @@ body {
   margin: 0;
   color: var(--text);
   background:
-    radial-gradient(circle at 15% 0%, #15263a 0, transparent 34%),
+    radial-gradient(circle at 15% 0%, #1f1850 0, transparent 38%),
     var(--bg);
 }
 
@@ -51,16 +52,10 @@ select {
 }
 
 .brand-mark {
-  display: grid;
-  width: 44px;
-  height: 44px;
-  place-items: center;
-  border: 1px solid var(--accent);
-  border-radius: 14px;
-  color: var(--accent);
-  background: #101b20;
-  font-weight: 900;
-  letter-spacing: 0.08em;
+  display: block;
+  width: 48px;
+  height: 48px;
+  margin: -2px;
 }
 
 .brand div {
@@ -89,7 +84,7 @@ select {
 }
 
 .privacy-badge.active {
-  border-color: rgb(88 231 179 / 45%);
+  border-color: rgb(139 124 255 / 45%);
   color: var(--accent);
 }
 
@@ -218,8 +213,9 @@ button:disabled {
 }
 
 .primary {
-  color: #07120e;
-  background: var(--accent);
+  color: #ffffff;
+  background: var(--accent-strong);
+  box-shadow: 0 8px 24px rgb(74 51 216 / 35%);
 }
 
 .secondary,
@@ -284,11 +280,11 @@ button:disabled {
 
 .background-note {
   margin: 22px 0 0;
-  border: 1px solid rgb(88 231 179 / 35%);
+  border: 1px solid rgb(139 124 255 / 35%);
   border-radius: 12px;
   padding: 13px;
-  color: #c9f5e4;
-  background: rgb(88 231 179 / 8%);
+  color: #ddd8ff;
+  background: rgb(139 124 255 / 8%);
   font-size: 12px;
   line-height: 1.6;
 }
@@ -315,11 +311,11 @@ button:disabled {
 
 .privacy-note {
   margin: 26px 0 0;
-  border: 1px solid rgb(88 231 179 / 18%);
+  border: 1px solid rgb(139 124 255 / 18%);
   border-radius: 12px;
   padding: 13px;
   color: #9fb4af;
-  background: rgb(88 231 179 / 5%);
+  background: rgb(139 124 255 / 5%);
   font-size: 11px;
   line-height: 1.55;
 }
