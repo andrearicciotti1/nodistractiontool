@@ -9,6 +9,10 @@
   <sub>🖥️ App per Mac · 🧩 Estensione Chrome · 🔒 Analisi solo in locale</sub>
 </p>
 
+<p align="center">
+  <a href="https://github.com/andrearicciotti1/nodistractiontool/releases/latest"><b>⬇️ Scarica per Mac (DMG)</b></a>
+</p>
+
 ---
 
 👁️ Strumenti che usano la webcam per capire se stai guardando lo schermo: quando ti distrai **mettono in pausa il video** (con un suono di errore) e lo **fanno ripartire** quando torni a guardare.
@@ -44,7 +48,7 @@
   <img src="branding/dmg-preview.jpg" width="560" alt="Finestra di installazione del DMG">
 </p>
 
-**Con il DMG:** apri `No-Distraction-1.0.0.dmg` e trascina l'app in Applicazioni.
+**Con il DMG:** ⬇️ scarica [**No-Distraction-1.0.0.dmg**](https://github.com/andrearicciotti1/nodistractiontool/releases/latest) dalle Release, aprilo e trascina l'app in Applicazioni.
 
 **Dal codice:**
 

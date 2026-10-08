@@ -8,6 +8,10 @@ Stessa idea dell'estensione Chrome, ma per **qualsiasi programma**: Chrome, Safa
 
 Requisiti: macOS 13+ (consigliato 14.2+), Xcode o i Command Line Tools per compilare.
 
+## ⬇️ Scaricare
+
+Il DMG pronto è nelle [Release](https://github.com/andrearicciotti1/nodistractiontool/releases/latest).
+
 ## 📦 Compilare e installare
 
 ```bash
