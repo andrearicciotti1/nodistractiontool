@@ -10,7 +10,10 @@ datas = [(str(WINDOWS / "assets"), "assets")]
 datas += collect_data_files("mediapipe")
 datas += collect_data_files("customtkinter")
 
-hiddenimports = collect_submodules("winrt") + ["pystray._win32", "PIL._tkinter_finder"]
+# winrt è un namespace diviso in più pacchetti: si elencano i moduli usati.
+hiddenimports = ["pystray._win32", "PIL._tkinter_finder", "winrt.runtime", "winrt.system"]
+for package in ("winrt.windows.foundation", "winrt.windows.foundation.collections", "winrt.windows.media.control"):
+    hiddenimports += [package] + collect_submodules(package)
 
 a = Analysis(
     [str(WINDOWS / "run.py")],

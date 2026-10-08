@@ -39,6 +39,10 @@ class MediaController:
         self._paused_ids.clear()
 
     async def _sessions(self):
+        # get_sessions() restituisce una collezione WinRT: il modulo va importato
+        # esplicitamente perché PyInstaller lo includa nell'eseguibile.
+        import winrt.windows.foundation  # noqa: F401
+        import winrt.windows.foundation.collections  # noqa: F401
         from winrt.windows.media.control import (
             GlobalSystemMediaTransportControlsSessionManager as Manager,
         )
