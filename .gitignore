@@ -8,3 +8,12 @@ chrome-extension/media/
 # Build dell'app macOS
 macos/.build/
 macos/build/
+
+# Build Windows (generate da windows/build/prepare.py e PyInstaller)
+windows/assets/face_landmarker.task
+windows/dist/
+windows/build/work/
+windows/build/*.bmp
+windows/build/generated.iss
+windows/build/version_info.txt
+__pycache__/

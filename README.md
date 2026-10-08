@@ -6,11 +6,11 @@
 
 <p align="center">
   <b>Ti distrai? Il video si ferma. Torni a guardare? Riparte.</b><br>
-  <sub>🖥️ App per Mac · 🧩 Estensione Chrome · 🔒 Analisi solo in locale</sub>
+  <sub>🖥️ App per Mac · 🪟 App per Windows · 🧩 Estensione Chrome · 🔒 Analisi solo in locale</sub>
 </p>
 
 <p align="center">
-  <a href="https://github.com/andrearicciotti1/nodistractiontool/releases/latest"><b>⬇️ Scarica per Mac (DMG)</b></a>
+  <a href="https://github.com/andrearicciotti1/nodistractiontool/releases/latest"><b>⬇️ Scarica per Mac (DMG) o Windows (installer)</b></a>
 </p>
 
 ---
@@ -19,19 +19,20 @@
 
 🔒 L'analisi avviene **solo sul computer**: nessun fotogramma viene salvato o inviato a un server.
 
-📦 La repo contiene **due strumenti separati**, indipendenti tra loro:
+📦 La repo contiene **tre strumenti separati**, indipendenti tra loro:
 
-| | [🖥️ App per Mac](macos/) | [🧩 Estensione Chrome](chrome-extension/) |
-| --- | --- | --- |
-| **Cosa mette in pausa** | Qualsiasi programma: Chrome, Safari, Spotify, Musica, QuickTime, VLC, IINA, Elmedia… | Solo i video dentro Chrome (YouTube, Netflix, Prime Video, Twitch…) |
-| **Dove vive** | Icona nella barra dei menu | Icona dell'estensione in Chrome |
-| **Riconoscimento** | Apple Vision | MediaPipe Face Landmarker |
-| **Video muti** | Non li ferma (riconosce la riproduzione dall'audio) | Li ferma |
-| **Extra** | Avvio al login | Modalità scherzo (richiami video quando abbassi la testa) |
-| **Requisiti** | macOS 13+ (consigliato 14.2+) | Chrome 116+ su qualsiasi sistema |
-| **Cartella** | [`macos/`](macos/) | [`chrome-extension/`](chrome-extension/) |
+| | [🖥️ App per Mac](macos/) | [🪟 App per Windows](windows/) | [🧩 Estensione Chrome](chrome-extension/) |
+| --- | --- | --- | --- |
+| **Cosa mette in pausa** | Qualsiasi programma: Chrome, Safari, Spotify, Musica, QuickTime, VLC, IINA, Elmedia… | Qualsiasi programma nei controlli multimediali di Windows: Chrome, Edge, Firefox, Spotify, VLC… | Solo i video dentro Chrome (YouTube, Netflix, Prime Video, Twitch…) |
+| **Dove vive** | Icona nella barra dei menu | Icona nell'area di notifica | Icona dell'estensione in Chrome |
+| **Come mette in pausa** | Tasto ⏯ simulato, solo se qualcosa suona | Comandi espliciti Pausa / Play di Windows | Direttamente sui video della pagina |
+| **Riconoscimento** | Apple Vision | MediaPipe Face Landmarker | MediaPipe Face Landmarker |
+| **Video muti** | Non li ferma | Li ferma, se il programma espone i controlli | Li ferma |
+| **Extra** | Apertura al login | Avvio con Windows, installer | Modalità scherzo |
+| **Requisiti** | macOS 13+ (consigliato 14.2+) | Windows 10/11 a 64 bit | Chrome 116+ su qualsiasi sistema |
+| **Scarica** | [DMG](https://github.com/andrearicciotti1/nodistractiontool/releases/latest) | [Installer](https://github.com/andrearicciotti1/nodistractiontool/releases/latest) | Dalla cartella, in modalità sviluppatore |
 
-🤔 **Quale usare?** Su Mac l'app copre tutto. L'estensione serve su Windows/Linux, oppure se vuoi fermare anche video senza audio. **Non usarle insieme**: metterebbero in pausa entrambe.
+🤔 **Quale usare?** Su Mac e Windows l'app copre tutto. L'estensione serve su Linux o ChromeOS, oppure se vuoi solo Chrome. **Non usare app ed estensione insieme**: metterebbero in pausa entrambe.
 
 ## ✨ Cosa hanno in comune
 
@@ -60,6 +61,14 @@ cd macos
 
 ⚠️ L'app non è firmata con un certificato Apple: al primo avvio fai **clic destro sull'app › Apri**. Poi apri **No Distraction** da Applicazioni, consenti la webcam e il permesso **Accessibilità** (serve per premere ⏯ al posto tuo). Dettagli in [`macos/README.md`](macos/README.md).
 
+## 🪟 App per Windows — installazione
+
+1. ⬇️ Scarica [**No-Distraction-Setup**](https://github.com/andrearicciotti1/nodistractiontool/releases/latest) dalle Release e avvialo.
+2. ⚠️ Se compare *"Windows ha protetto il PC"*: **Ulteriori informazioni › Esegui comunque** (l'installer non è firmato con un certificato).
+3. Segui la procedura (nessun permesso da amministratore); l'app resta nell'area di notifica.
+
+L'installer è compilato e provato automaticamente su Windows da GitHub Actions. Dettagli in [`windows/README.md`](windows/README.md).
+
 ## 🧩 Estensione Chrome — installazione
 
 1. Apri `chrome://extensions` e attiva **Modalità sviluppatore**.
@@ -78,12 +87,16 @@ nodistractiontool/
 │   ├── Resources/       Info.plist
 │   ├── build.sh         Compila e installa
 │   └── make-dmg.sh      Crea il DMG di installazione
+├── windows/             App per l'area di notifica (Python, MediaPipe, controlli multimediali di Windows)
+│   ├── nodistraction/   Codice dell'app
+│   └── build/           PyInstaller, Inno Setup e preparazione delle risorse
 ├── chrome-extension/    Estensione Chrome Manifest V3 (JavaScript, MediaPipe in WebAssembly)
 │   ├── icons/           Icone dell'estensione
 │   ├── sounds/          Suono di errore (condiviso con l'app)
 │   ├── vendor/, models/ MediaPipe e modello del volto
 │   └── media/           Clip delle modalità scherzo: NON nella repo, solo in locale
-└── branding/            Icona, sfondo del DMG e lo script che li disegna (render.swift)
+├── branding/            Icona, sfondo del DMG e lo script che li disegna (render.swift)
+└── .github/workflows/   Compilazione e prova dell'installer Windows
 ```
 
 ## 📝 Note

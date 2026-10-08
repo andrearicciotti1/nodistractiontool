@@ -1,0 +1,89 @@
+name: Windows
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "windows/**"
+      - "branding/**"
+      - "chrome-extension/models/**"
+      - ".github/workflows/windows.yml"
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Tag della release a cui allegare l'installer (vuoto: nessuna)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+        working-directory: windows
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: windows/requirements.txt
+
+      - name: Dipendenze
+        run: pip install -r requirements.txt pyinstaller==6.11.1
+
+      - name: Risorse
+        run: python build/prepare.py
+
+      - name: Auto-test dal codice
+        run: python -m nodistraction --self-test
+
+      - name: Eseguibile
+        run: pyinstaller build/NoDistraction.spec --noconfirm --distpath dist --workpath build/work
+
+      - name: Auto-test dell'eseguibile
+        run: |
+          $log = "$env:RUNNER_TEMP\selftest-exe.log"
+          $p = Start-Process dist\NoDistraction\NoDistraction.exe -ArgumentList "--self-test","--log",$log -Wait -PassThru
+          Get-Content $log
+          if ($p.ExitCode -ne 0) { throw "Auto-test fallito ($($p.ExitCode))" }
+
+      - name: Installer
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $iscc)) { choco install innosetup --no-progress -y; }
+          & $iscc build\installer.iss
+          if ($LASTEXITCODE -ne 0) { throw "ISCC fallito" }
+          Get-ChildItem dist\*.exe | Format-Table Name, Length
+
+      - name: Prova dell'installer (installazione silenziosa)
+        run: |
+          $setup = (Get-ChildItem dist\No-Distraction-Setup-*.exe).FullName
+          $p = Start-Process $setup -ArgumentList "/VERYSILENT","/SUPPRESSMSGBOXES","/NORESTART","/CURRENTUSER","/TASKS=" -Wait -PassThru
+          if ($p.ExitCode -ne 0) { throw "Installazione fallita ($($p.ExitCode))" }
+          $exe = "$env:LOCALAPPDATA\Programs\No Distraction\NoDistraction.exe"
+          if (-not (Test-Path $exe)) { throw "Eseguibile installato non trovato" }
+          $log = "$env:RUNNER_TEMP\selftest-installed.log"
+          $t = Start-Process $exe -ArgumentList "--self-test","--log",$log -Wait -PassThru
+          Get-Content $log
+          if ($t.ExitCode -ne 0) { throw "Auto-test dell'app installata fallito" }
+          $uninstaller = Get-ChildItem "$env:LOCALAPPDATA\Programs\No Distraction\unins*.exe" | Select-Object -First 1
+          $u = Start-Process $uninstaller.FullName -ArgumentList "/VERYSILENT","/SUPPRESSMSGBOXES" -Wait -PassThru
+          if ($u.ExitCode -ne 0) { throw "Disinstallazione fallita" }
+          Write-Host "Installazione, avvio e disinstallazione: ok"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: No-Distraction-Windows
+          path: windows/dist/No-Distraction-Setup-*.exe
+
+      - name: Allega alla release
+        if: ${{ github.event.inputs.release_tag != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ github.event.inputs.release_tag }}" (Get-ChildItem dist\No-Distraction-Setup-*.exe).FullName --clobber
