@@ -28,7 +28,7 @@
 | **Come mette in pausa** | Tasto ⏯ simulato, solo se qualcosa suona | Comandi espliciti Pausa / Play di Windows | Direttamente sui video della pagina |
 | **Riconoscimento** | Apple Vision | MediaPipe Face Landmarker | MediaPipe Face Landmarker |
 | **Video muti** | Non li ferma | Li ferma, se il programma espone i controlli | Li ferma |
-| **Extra** | Apertura al login | Avvio con Windows, installer | Modalità scherzo |
+| **Extra** | Apertura al login | Avvio con Windows, installer | Modalità scherzo (con file media propri, non inclusi) |
 | **Requisiti** | macOS 13+ (consigliato 14.2+) | Windows 10/11 a 64 bit | Chrome 116+ su qualsiasi sistema |
 | **Scarica** | [DMG](https://github.com/andrearicciotti1/nodistractiontool/releases/latest) | [Installer](https://github.com/andrearicciotti1/nodistractiontool/releases/latest) | Dalla cartella, in modalità sviluppatore |
 

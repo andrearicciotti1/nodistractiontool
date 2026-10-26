@@ -126,9 +126,26 @@ function currentMode() {
   return MODES[elements.modeSelect.value];
 }
 
-function populateModes() {
+// I file in media/ non sono nella repo: una modalità compare solo se ci sono
+// tutti i suoi file, così chi installa dalla repo vede pausa e versione auto.
+function modeFiles(mode) {
+  return [mode.video, mode.audio, ...(mode.images ?? [])].filter(Boolean);
+}
+
+async function fileExists(path) {
+  try {
+    const response = await fetch(extensionUrl(path));
+    response.body?.cancel();
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
+async function populateModes() {
   for (const [key, mode] of Object.entries(MODES)) {
-    elements.modeSelect.append(new Option(mode.label, key));
+    const files = await Promise.all(modeFiles(mode).map(fileExists));
+    if (files.every(Boolean)) elements.modeSelect.append(new Option(mode.label, key));
   }
 }
 
@@ -572,7 +589,7 @@ window.addEventListener("pagehide", () => {
   stopPreview();
 });
 
-populateModes();
+await populateModes();
 drawPreview();
 await restoreSettings();
 applyBackgroundState(await chrome.runtime.sendMessage({ type: "ndt-get-state" }));

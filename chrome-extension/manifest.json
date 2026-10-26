@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "No Distraction Tool",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Mette in pausa i video quando smetti di guardare lo schermo, anche con la pagina chiusa. Analisi della webcam solo in locale.",
   "icons": {
     "16": "icons/icon-16.png",

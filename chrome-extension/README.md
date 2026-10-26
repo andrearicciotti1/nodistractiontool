@@ -35,7 +35,7 @@ Il permesso della webcam si può chiedere solo da una pagina visibile: per quest
 
 ## 🎭 Modalità scherzo
 
-Oltre alla pausa, il monitor ha le modalità originali (Enrico Papi, Serena Brancale, Ultimo, Benzina, Teams, Physical, Versione auto) che mostrano un richiamo quando abbassi la testa. Funzionano solo con la scheda del monitor aperta e richiedono i file in `media/`, che **non sono nella repo** (sono clip di terzi): vanno copiati a mano in `chrome-extension/media/`.
+Oltre alla pausa, il monitor ha le modalità originali (Enrico Papi, Serena Brancale, Ultimo, Benzina, Teams, Physical, Versione auto) che mostrano un richiamo quando abbassi la testa. Funzionano solo con la scheda del monitor aperta e richiedono i file in `media/`, che **non sono nella repo** (sono clip di terzi). Senza quei file il monitor mostra solo «Metti in pausa i video» e «Versione auto»: ogni modalità scherzo compare da sola appena trova tutti i suoi file in `chrome-extension/media/`.
 
 La "Versione auto" è un prototipo dimostrativo non certificato: non usarla come sistema di sicurezza alla guida.
 
