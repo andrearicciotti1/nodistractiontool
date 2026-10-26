@@ -103,3 +103,7 @@ nodistractiontool/
 
 - 🎬 I file in `chrome-extension/media/` (clip audio/video delle modalità scherzo) sono di terzi e restano fuori dalla repo.
 - 🚗 La "Versione auto" dell'estensione è un prototipo dimostrativo non certificato: non usarla come sistema di sicurezza alla guida.
+
+## 📄 Licenza
+
+Codice rilasciato con licenza [MIT](LICENSE). MediaPipe e il modello del volto in `chrome-extension/vendor/` e `chrome-extension/models/` sono di Google e restano sotto la loro licenza (Apache 2.0).
